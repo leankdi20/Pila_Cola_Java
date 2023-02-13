@@ -1,0 +1,360 @@
+ Scanner sc = new Scanner(System.in);
+        Pila_Cola cola = new Pila_Cola();
+        Pila pila = new Pila(10);
+        int opcion = 0;
+        boolean Salir = false;
+
+        while (!Salir)
+        {
+            System.out.println("\nMenú");
+            System.out.println("1. Inicializar Cola");
+            System.out.println("2. Cola Vacía");
+            System.out.println("3. Insertar Cola");
+            System.out.println("4. Eliminar Cola");
+            System.out.println("5. Mostrar Cola");
+            System.out.println("6. Inicio de Cola");
+            System.out.println("7. Inicializar Pila");
+            System.out.println("8. Pila Vacía");
+            System.out.println("9. Push");
+            System.out.println("10. Pop");
+            System.out.println("11. Mostrar Pila");
+            System.out.println("12. Proceso 1");
+            System.out.println("13. Proceso 2");
+            System.out.println("14. Salir");
+            System.out.print("Opción: ");
+
+            opcion = sc.nextInt();
+
+            switch (opcion)
+            {
+                case 1:
+                    cola.limpiarCola();
+                    System.out.println("Cola inicializada.");
+                    break;
+                case 2:
+                    if (cola.ColaVacia())
+                    {
+                        System.out.println("La cola está vacía.");
+                    } else
+                    {
+                        System.out.println("La cola no está vacía.");
+                    }
+                    break;
+                case 3:
+                    System.out.print("Introduce un número: ");
+                    int num = sc.nextInt();
+                    cola.insertar(num);
+                    System.out.println("Número insertado en la cola.");
+                    break;
+                case 4:
+                    int aux = cola.eliminar();
+                    System.out.println("Se ha eliminado el número " + aux + " de la cola.");
+                    break;
+                case 5:
+                    System.out.println("Elementos de la cola: ");
+                    cola.mostrarCola();
+                    break;
+                case 6:
+                    System.out.println("El primer elemento de la cola es: " + cola.inicioCola());
+                    break;
+                case 7:
+                    pila.limpiarPila(10);
+                    System.out.println("Pila inicializada.");
+                    break;
+                case 8:
+                    if (pila.pilaVacia())
+                    {
+                        System.out.println("La pila está vacía.");
+                    }
+                    break;
+                case 9:
+                    System.out.print("Introduce un número: ");
+                    int dato = sc.nextInt();
+                    pila.push(dato);
+                    System.out.println("Número insertado en la PILA.");
+                    break;
+
+                case 10:
+                    System.out.println("Eliminar elemento");
+                    pila.pop();
+
+                    break;
+                case 11:
+                    System.out.println("Contenido ");
+                    pila.mostrarPila();
+
+                case 12:
+                    int numero;
+
+                    for (int i = 0; i < 10; i++)
+                    {
+                        System.out.print("Ingrese un número: ");
+                        numero = sc.nextInt();
+                        numero *= 100;
+
+                        if (numero > 100.000)
+                        {
+                            if (pila.cima == 10)
+                            {
+                                System.out.println("La pila está llena");
+                            } else
+                            {
+                                pila.push(numero);
+                            }
+                        } else
+                        {
+                            cola.insertar(numero);
+                        }
+                    }
+
+                    System.out.println("Valores de la pila:");
+                    pila.pilaLlena(10);
+                    System.out.println("");
+                    System.out.println("Valores de la cola:");
+                    cola.mostrarCola();
+
+                    break;
+
+                case 13:
+                    /**
+                     * Este método solicita 20 números pares y los agrega a una
+                     * cola que se recibe como parámetro vacía. Después de
+                     * agregar los 20 números, el método muestra la mitad de los
+                     * elementos de la cola.
+                     */
+
+                    int contador = 0;
+
+                    // Solicitar 20 números pares
+                    for (int i = 1; i <= 20; i++)
+                    {
+                        System.out.println("Ingrese un numero par: ");
+                        num = new Scanner(System.in).nextInt();
+
+                        if (num % 2 == 0)
+                        {
+                            cola.insertar(num);
+                            contador++;
+                        }
+                    }
+
+                    System.out.println("Los numeros pares ingresados son: ");
+                    cola.mostrarCola();
+
+                    System.out.println("");
+                    System.out.println("Los primeros " + (contador / 2) + " números pares son: ");
+                   
+                    for (int i = 1; i <= (contador / 2); i++)
+                    {
+                        System.out.println(cola.eliminar());
+                    }
+                    
+                    int mitad = cola.tamanoCola() / 2;
+                    System.out.println("La mitad de los elementos de la cola son: ");
+                    for (int i = 0; i < mitad; i++)
+                    {
+                        System.out.println(cola.eliminar());
+                    }
+
+                    break;
+
+                case 14:
+                    Salir = true;
+                    break;
+
+                default:
+                    System.out.println("Opción inválida");
+                    break;
+
+            }
+        }
+    }
+    
+    
+    
+    public class Pila {
+
+    int vectorPila[];
+    int cima;
+  
+
+    public Pila(int tamano) {
+        vectorPila = new int[tamano];
+        cima = 0;
+    }
+
+    public void limpiarPila(int tamano) {
+        vectorPila = new int[tamano];
+        cima = 0;
+    }
+
+    public void push(int dato) {
+        vectorPila[cima]= dato;
+        cima++;
+
+    }
+
+    public int pop() {
+        
+        
+        int eliminar = 0;
+
+        if (cima == 0)
+        {
+
+        } else
+        {
+
+            eliminar = vectorPila[cima - 1];
+            cima--;
+           
+        }
+         
+        return eliminar;
+
+    }
+
+    public int tamano() {
+        return vectorPila.length;
+    }
+
+    public boolean pilaVacia() {
+        if (cima == 0)
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
+    }
+
+    public boolean pilaLlena(int tamano) {
+        System.out.println("");
+        System.out.println("Contenido de la pila: ");
+        System.out.println("");
+        for (int i = cima - 1; i >= 0; i--)
+        {
+            System.out.println(vectorPila[i]);
+        }
+        return false;
+       
+    }
+//Muestra todos los numeros de la PILA
+
+    public void mostrarPila() {
+
+        while (pilaVacia() == false)
+        {
+            int valor = pop();
+            System.out.println(valor);
+
+        }
+    }
+
+    //Recorre toda la pila hasta mostrar el ultimo numero.
+    public int mostrarFondo() {
+        int valor = 0;
+        while (pilaVacia() == false)
+        {
+            valor = pop();
+        }
+        return valor;
+
+    }
+    
+    public void Proceso1(){
+    }
+
+}
+
+
+
+public class NodoCola {
+    
+    int dato;
+    NodoCola siguiente;
+    
+   
+    
+    public NodoCola(int d){
+        dato = d;
+        siguiente = null;
+    }    
+ //Constructor
+    public NodoCola(int dato, NodoCola siguiente) {
+        this.dato = dato;
+        this.siguiente = siguiente;
+    }
+
+  }
+  
+  
+  public class Pila_Cola {
+    
+     NodoCola inicio, fin;
+    int tama;
+
+    public void limpiarCola() {
+        inicio = fin = null;
+        tama = 0;
+    }
+
+    public boolean ColaVacia() {
+        return inicio == null;
+    }
+
+    public void insertar(int ele) {
+        NodoCola nuevo = new NodoCola(ele);
+        if (ColaVacia())
+        {
+            inicio = nuevo;
+        } else
+        {
+            fin.siguiente = nuevo;
+        }
+        fin = nuevo;
+        tama++;
+    }
+
+    public int eliminar() {
+        int aux = inicio.dato;
+        inicio = inicio.siguiente;
+        tama--;
+        return aux;
+    }
+
+    public int inicioCola() {
+        return inicio.dato;
+    }
+
+    public int tamanoCola() {
+        return tama;
+    }
+
+    //Para mostrar listas
+    public void mostrarCola() {
+        NodoCola aux = inicio;
+
+        while (aux != null)
+        {
+            System.out.print(aux.dato + " ");
+            aux = aux.siguiente;
+        }
+    }
+
+    public void mostrarCOlaDOs() {
+        while (ColaVacia() == false)
+        {
+
+            System.out.println(eliminar());
+        }
+    }
+//Pasa valores de la cola a la pila
+    public void pasar(Pila pilas) {
+        while (pilas.pilaVacia() == false)
+        {
+            insertar(pilas.pop());
+        }
+    }
+    
+}
